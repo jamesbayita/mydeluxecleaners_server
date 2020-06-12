@@ -13,12 +13,15 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
+var _config = require("./config");
+
 var _index = _interopRequireDefault(require("./routes/index"));
 
 var _users = _interopRequireDefault(require("./routes/users"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+console.log(_config.PORT);
 var app = (0, _express["default"])();
 app.use((0, _morgan["default"])('dev'));
 app.use(_express["default"].json());
