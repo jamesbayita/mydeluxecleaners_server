@@ -10,6 +10,8 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+var _config = require("../config");
+
 var _app = _interopRequireDefault(require("../app"));
 
 var _debug = _interopRequireDefault(require("debug"));
@@ -21,7 +23,7 @@ var debug = (0, _debug["default"])('server:server');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(_config.PORT || '3000');
 
 _app["default"].set('port', port);
 /**
