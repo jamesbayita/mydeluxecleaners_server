@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,11 +11,19 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _express = _interopRequireWildcard(require("express"));
+var _express = _interopRequireDefault(require("express"));
 
 var _emailListModel = _interopRequireDefault(require("../models/emailListModel"));
 
 var _validation = _interopRequireDefault(require("../helpers/validation"));
+
+var _mail = _interopRequireDefault(require("@sendgrid/mail"));
+
+var _getTimeStamp = _interopRequireDefault(require("../helpers/getTimeStamp"));
+
+var _config = require("../config");
+
+_mail["default"].setApiKey(_config.SENDGRID_API_KEY);
 
 var usersRouter = _express["default"].Router();
 
@@ -26,7 +32,7 @@ usersRouter.get('', function (req, res) {
 });
 usersRouter.post('', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, first_name, last_name, email, user;
+    var _req$body, first_name, last_name, email, user, msg;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -61,11 +67,25 @@ usersRouter.post('', /*#__PURE__*/function () {
             });
 
           case 7:
-            _context.next = 12;
+            msg = {
+              to: email,
+              from: 'support@mydeluxecleaners.com',
+              templateId: 'd-a19357056bb94b8f936741893f66dbc4',
+              dynamic_template_data: {
+                first_name: first_name,
+                last_name: last_name,
+                date: (0, _getTimeStamp["default"])()
+              }
+            };
+            _context.next = 10;
+            return _mail["default"].send(msg);
+
+          case 10:
+            _context.next = 15;
             break;
 
-          case 9:
-            _context.prev = 9;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             // HANDLE ERRORS
             res.status(400).json({
@@ -73,12 +93,12 @@ usersRouter.post('', /*#__PURE__*/function () {
               error: _context.t0
             });
 
-          case 12:
+          case 15:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 12]]);
   }));
 
   return function (_x, _x2) {

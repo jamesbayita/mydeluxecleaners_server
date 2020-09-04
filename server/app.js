@@ -32,5 +32,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 apiRouter.use('/users', usersRouter);
+
     
 export default app;
