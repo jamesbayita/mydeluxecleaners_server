@@ -9,10 +9,6 @@ sgMail.setApiKey(SENDGRID_API_KEY);
 
 const usersRouter = express.Router()
 
-usersRouter.get('', (req, res) => {
-  res.send('Hello World');
-});
-
 usersRouter.post('', async (req, res) => {
     try {
       // DESTRUCTURE THE REQ.BODY OBJECT

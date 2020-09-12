@@ -27,9 +27,6 @@ _mail["default"].setApiKey(_config.SENDGRID_API_KEY);
 
 var usersRouter = _express["default"].Router();
 
-usersRouter.get('', function (req, res) {
-  res.send('Hello World');
-});
 usersRouter.post('', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     var _req$body, first_name, last_name, email, user, msg;
